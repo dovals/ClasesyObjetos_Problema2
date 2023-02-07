@@ -1,88 +1,69 @@
 #include <iostream>
 #include <string.h>
-#define MAX 20
 
-using namespace std;
+class Materia {
+private:
+  char *Nombre;
+  int Clave;
+  char *ProfesorTit;
+  char *LibroTexto;
 
-class Materia
-{
-    private:
+public:
+  Materia(char *nombre, int clave, char *profesorTit, char *libroTexto)
+    : Nombre(nombre), Clave(clave), ProfesorTit(profesorTit), LibroTexto(libroTexto) {}
 
-        int Clave = 2022;
-        char Nombre[MAX] = "Base";
-        char ProfesorTit[MAX] = "Fernando";
-        char LibroTexto[MAX] = "BSD1";
-        char nuevprof[MAX] = " ";
+  void setClave(int clave) { Clave = clave; }
+  void setProfesorTit(char *profesorTit) { ProfesorTit = profesorTit; }
+  void setLibroTexto(char *libroTexto) { LibroTexto = libroTexto; }
+  void Imprime() {
+    std::cout << "Nombre: " << Nombre << std::endl;
+    std::cout << "Clave: " << Clave << std::endl;
+    std::cout << "ProfesorTit: " << ProfesorTit << std::endl;
+    std::cout << "Libro: " << LibroTexto << std::endl;
+}
 
-    public:
-
-        void MenuMat()
-        {
-            system("cls");
-            int opcMat,auxc;
-            cout << "\n1.-Cambiar la clave de la materia Programacion\n2.-Cambiar el nombre del maestro que imparte la materia BasesDatos\n3.-Imprimir todos los datos de la materia BasesDatos"<< endl;
-            cin>>opcMat;
-            switch(opcMat)
-                {
-                    case 1:
-                        system("cls");
-                        cout<<"Ingrese la nueva clave"<<endl;
-                        cin>>auxc;
-                        CambiaClave(auxc);
-                    break;
-
-                    case 2:
-                        system("cls");
-                        cout<<"Nombre Actual "<<ProfesorTit<<"\n"<<endl;
-                        cout<<"Ingresa el nombre del nuevo maestro de base de datos"<<endl;
-                        cin>>nuevprof;
-                        CambiaProfe(nuevprof);
-                    break;
-
-                    case 3:
-                        system("cls");
-                        Imprime();
-                    break;
-
-                    default:
-                        cout<<"opcion incorrecta"<<endl;
-                    break;
-                }
-        }
-
-        void Imprime()
-        {
-            system("cls");
-            cout<<Nombre<<" "<<ProfesorTit<<" "<<LibroTexto<<endl;
-            system("pause");
-        }
-
-        void CambiaClave(int auxc)
-        {
-            system("cls");
-            cout<<"Clave Materia Programacion "<<Clave<<endl;
-            Clave = auxc;
-            cout<<"Clave Nueva Programacion "<<Clave<<endl;
-            system("pause");
-        }
-
-        void CambiaProfe(char nuevprof[])
-        {
-             strcpy(ProfesorTit, nuevprof);
-             system("pause");
-        }
-
+  char* getNombre() const { return Nombre; }
+  int getClave() const { return Clave; }
+  char* getProfesorTit() const { return ProfesorTit; }
+  char* getLibroTexto() const { return LibroTexto; }
 };
 
+int main() {
+  Materia Programacion("Programacion", 1, "Juan","P1");
+  Materia BasesDatos("Bases de Datos", 2, "Maria","BD1");
 
-int main()
-{
-    Materia Programacion;
-    Materia BasesDatos;
+  int opcion = 0;
+  do {
+    std::cout << "1. Cambiar clave de Programacion" << std::endl;
+    std::cout << "2. Cambiar ProfesorTit de Bases de Datos" << std::endl;
+    std::cout << "3. Imprimir Bases de Datos" << std::endl;
+    std::cout << "4. Imprimir Programacion" << std::endl;
+    std::cout << "Seleccione una opcion: ";
+    std::cin >> opcion;
 
-    do
-    {
-        BasesDatos.MenuMat();
-    }while(true);
-    return 0;
+    switch (opcion) {
+      case 1:
+        int nuevaClave;
+        std::cout << "Ingrese la nueva clave: ";
+        std::cin >> nuevaClave;
+        Programacion.setClave(nuevaClave);
+        break;
+
+      case 2:
+        char nuevoProfesorTit[50];
+        std::cout << "Ingrese el nuevo ProfesorTit: ";
+        std::cin >> nuevoProfesorTit;
+        BasesDatos.setProfesorTit(nuevoProfesorTit);
+        break;
+      case 3:
+        BasesDatos.Imprime();
+        break;
+
+      case 4:
+        Programacion.Imprime();
+        break;
+    }
+  }while(true);
+
+  return 0;
 }
